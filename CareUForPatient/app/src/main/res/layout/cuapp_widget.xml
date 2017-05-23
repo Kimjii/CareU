@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+                android:layout_width = "match_parent"
+                android:layout_height = "match_parent"
+                android:background = "#6ebdc2c3"
+                android:padding = "@dimen/widget_margin">
+
+
+    <Button
+        android:layout_width = "match_parent"
+        android:layout_height = "100dp"
+        android:id = "@+id/widget119button"
+        android:layout_alignParentTop = "true"
+        android:layout_alignParentStart = "true"
+        android:layout_marginTop = "10dp"
+        android:background = "@drawable/widget119button" />
+
+    <Button
+        android:layout_width = "match_parent"
+        android:layout_height = "100dp"
+        android:id = "@+id/widget112button"
+        android:layout_below = "@+id/widget119button"
+        android:layout_centerHorizontal = "true"
+        android:background = "@drawable/widget112button" />
+
+    <Button
+        android:layout_width = "match_parent"
+        android:layout_height = "100dp"
+        android:id = "@+id/widgetProtectorbutton"
+        android:layout_below = "@+id/widget112button"
+        android:layout_centerHorizontal = "true"
+        android:background = "@drawable/widgetprotectorbutton" />
+
+    <Button
+        android:layout_width = "match_parent"
+        android:layout_height = "100dp"
+        android:id = "@+id/widgetHomebutton"
+        android:layout_below = "@+id/widgetProtectorbutton"
+        android:layout_centerHorizontal = "true"
+        android:background = "@drawable/widgethomebutton" />
+
+    <TextView
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:textAppearance = "?android:attr/textAppearanceSmall"
+        android:text = "CareUForPatient"
+        android:id = "@+id/textView"
+        android:layout_below = "@+id/widgetHomebutton"
+        android:layout_alignParentEnd = "true"
+        android:textStyle = "bold|italic" />
+
+</RelativeLayout>

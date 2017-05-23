@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              android:orientation = "vertical"
+              android:layout_width = "match_parent"
+              android:layout_height = "match_parent">
+
+    <Button
+        android:layout_width = "200dp"
+        android:layout_height = "130dp"
+        android:id = "@+id/call119Image"
+        android:background = "@drawable/call119button"
+        android:layout_gravity = "center_horizontal"
+        android:layout_marginTop = "100dp" />
+
+    <Button
+        android:layout_width = "200dp"
+        android:layout_height = "130dp"
+        android:id = "@+id/call112Image"
+        android:layout_gravity = "center_horizontal"
+        android:background = "@drawable/call112button" />
+
+    <Button
+        android:layout_width = "220dp"
+        android:layout_height = "130dp"
+        android:id = "@+id/callProtectorImage"
+        android:layout_gravity = "center_horizontal"
+        android:background = "@drawable/protectorbutton" />
+</LinearLayout>
