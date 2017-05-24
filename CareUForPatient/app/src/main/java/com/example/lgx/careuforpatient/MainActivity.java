@@ -153,8 +153,8 @@ public class MainActivity extends Activity
                 String str;
                 URL url;
 
-                url = new URL("http://192.168.0.11:8080/CareU/patient_main_android.jsp"); // ch-Iptime 5G
-                // url = new URL("http://192.168.0.30:8080/CareU/patient_main_android.jsp"); // D444 5G
+                // url = new URL("http://192.168.0.11:8080/CareU/patient_main_android.jsp"); // ch-Iptime 5G
+                url = new URL("http://192.168.0.30:8080/CareU/patient_main_android.jsp"); // D444 5G
 
                 sendMsg = "num="+strings[1]+"&type="+strings[0];
 

@@ -146,8 +146,8 @@ public class GPSService extends Service
             try
             {
                 String str;
-                URL url = new URL("http://192.168.0.11:8080/CareU/mouvingroute_insert_android.jsp"); // ch-Iptime 5G
-                // URL url = new URL("http://192.168.0.30:8080/CareU/mouvingroute_insert_android.jsp"); // D444 5G
+                // URL url = new URL("http://192.168.0.11:8080/CareU/mouvingroute_insert_android.jsp"); // ch-Iptime 5G
+                URL url = new URL("http://192.168.0.30:8080/CareU/mouvingroute_insert_android.jsp"); // D444 5G
 
                 sendMsg = "patno="+strings[0]+"&division="+strings[1]+"&address="+strings[2]+"&time="+strings[3];
 

@@ -98,8 +98,8 @@ public class LoginActivity extends Activity
                 URL url;
                 if ( strings[0].equals( "login" ) )
                 {
-                    url = new URL("http://192.168.0.11:8080/CareU/login_android.jsp"); // ch-Iptime 5G
-                    // url = new URL("http://192.168.0.30:8080/CareU/login_android.jsp"); // D444 5G
+                    // url = new URL("http://192.168.0.11:8080/CareU/login_android.jsp"); // ch-Iptime 5G
+                    url = new URL("http://192.168.0.30:8080/CareU/login_android.jsp"); // D444 5G
                     sendMsg = "&type="+strings[0]+"&id="+strings[1]+"&pwd="+strings[2];
                 }
                 else // 회원가입
