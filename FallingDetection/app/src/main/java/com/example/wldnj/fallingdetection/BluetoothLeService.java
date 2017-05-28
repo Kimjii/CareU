@@ -29,7 +29,9 @@ import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
@@ -40,6 +42,7 @@ import java.util.List;
  * Service for managing connection and data communication with a GATT server hosted on a
  * given Bluetooth LE device.
  */
+@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class BluetoothLeService extends Service {
     private final static String TAG = BluetoothLeService.class.getSimpleName();
 
@@ -54,7 +57,7 @@ public class BluetoothLeService extends Service {
     public int mConnectionState = STATE_DISCONNECTED;
 
     
-    //To tell the onCharacteristicWrite call back function that this is a new characteristic, 
+    //To tell the onCharacteristicWrite call back function th1at this is a new characteristic,
     //not the Write Characteristic to the device successfully.
     private static final int WRITE_NEW_CHARACTERISTIC = -1;
     //define the limited length of the characteristic.
@@ -282,10 +285,11 @@ public class BluetoothLeService extends Service {
         	System.out.println("onDescriptorWrite  "+characteristic.getUuid().toString()+" "+status);
         }
         @Override
-        public void onCharacteristicChanged(BluetoothGatt gatt,
-                                            BluetoothGattCharacteristic characteristic) {
-        	System.out.println("onCharacteristicChanged  "+new String(characteristic.getValue()));
-            broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
+        public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+        	String receivedStr = new String(characteristic.getValue());
+            Log.w(TAG, receivedStr);
+
+            // 여기서 디비
         }
     };
 
@@ -341,7 +345,8 @@ public class BluetoothLeService extends Service {
         // After using a given device, you should make sure that BluetoothGatt.close() is called
         // such that resources are cleaned up properly.  In this particular example, close() is
         // invoked when the UI is disconnected from the Service.
-        close();
+        System.out.println("BluetoothLeService onUnbind");
+        //close();
         return super.onUnbind(intent);
     }
 
@@ -539,6 +544,10 @@ public class BluetoothLeService extends Service {
 
         return mBluetoothGatt.getServices();
     }
-    
-    
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        //Log.w(TAG, "서비스 실행중");
+        return super.onStartCommand(intent, flags, startId);
+    }
 }

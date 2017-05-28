@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class BluetoothConnectActivity extends BlunoLibrary {
@@ -18,7 +17,6 @@ public class BluetoothConnectActivity extends BlunoLibrary {
         setContentView(R.layout.activity_bluetooth_connect);
 
         onCreateProcess();														//onCreate Process by BlunoLibrary
-
 
         serialBegin(115200);													//set the Uart Baudrate on BLE chip to 115200
 
@@ -69,18 +67,18 @@ public class BluetoothConnectActivity extends BlunoLibrary {
     @Override
     protected void onPause() {
         super.onPause();
-        onPauseProcess();														//onPause Process by BlunoLibrary
+        //onPauseProcess();														//onPause Process by BlunoLibrary
     }
 
     protected void onStop() {
         super.onStop();
-        onStopProcess();														//onStop Process by BlunoLibrary
+        //onStopProcess();														//onStop Process by BlunoLibrary
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        onDestroyProcess();														//onDestroy Process by BlunoLibrary
+        //onDestroyProcess();														//onDestroy Process by BlunoLibrary
     }
 
     @Override
@@ -112,9 +110,10 @@ public class BluetoothConnectActivity extends BlunoLibrary {
     @Override
     public void onSerialReceived(String theString) {							//Once connection data received, this function will be called
         // TODO Auto-generated method stub
-        serialReceivedText.append(theString);							//append the text into the EditText
+        //serialReceivedText.append(theString);							//append the text into the EditText
         //The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
-        ((ScrollView)serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
+        //((ScrollView)serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
+        //Toast.makeText( getApplicationContext(), theString, Toast.LENGTH_SHORT ).show();
     }
 
 }

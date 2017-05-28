@@ -29,8 +29,8 @@ struct Value{
   float x;
   float y;
 };
-const float threshold1X = 20.0;
-const float threshold1Y = 45.0;
+const float threshold1X = 10.0;
+const float threshold1Y = 25.0;
 const float threshold2X = 2.0;
 const float threshold2Y = 1.0;
 
@@ -116,11 +116,15 @@ void loop() {
   if( absolute(realtimeSum.x) > threshold1X && absolute(realtimeSum.y) > threshold1Y ){
     isShocked = true;
     Serial.print("Shocked!");
-    Serial.print( "realtimeSumX : " ); display_formatted_float(realtimeSum.x, 5, 2, 3, false); Serial.print('|');
-    Serial.print( "realtimeSumY : " ); display_formatted_float(realtimeSum.y, 5, 2, 3, true);
+    String realtimeSumX = String(realtimeSum.x);
+    String realtimeSumY = String(realtimeSum.y);
+    Serial.print(realtimeSumX);Serial.print(realtimeSumY);
+    //Serial.print( "realtimeSumX : " ); 
+    //display_formatted_float(realtimeSum.x, 5, 2, 3, false); //Serial.print('|');
+    //Serial.print( "realtimeSumY : " ); 
+    //display_formatted_float(realtimeSum.y, 5, 2, 3, true);
   }
-    
-  
+
   if( isShocked )
   {
     delay(1000);
@@ -139,8 +143,8 @@ void loop() {
     //Serial.print( "sumY : " ); display_formatted_float(sum.y, 5, 2, 3, true);
     
     struct Value afterAvg = calculateAverage( sum, AFTERWINDOWSIZE );
-    Serial.print( "afterAvgX : " ); display_formatted_float(afterAvg.x, 5, 2, 3, false); Serial.print('|');
-    Serial.print( "afterAvgY : " ); display_formatted_float(afterAvg.y, 5, 2, 3, true);
+    //Serial.print( "afterAvgX : " ); display_formatted_float(afterAvg.x, 5, 2, 3, false); Serial.print('|');
+    //Serial.print( "afterAvgY : " ); display_formatted_float(afterAvg.y, 5, 2, 3, true);
 
     /* After shocked, if this situation was Falling that after read values are smaller than threshold2. */
     if( absolute( afterAvg.x ) < threshold2X && absolute( afterAvg.y ) < threshold2Y )  // Falling Detection
@@ -250,6 +254,7 @@ void display_formatted_float(double val, int characteristic, int mantissa, int b
 
   dtostrf(val, characteristic, mantissa, outString);
   len = strlen(outString);
+  return outString;
 
   //Serial.print(outString);
   Serial.write(outString);
@@ -257,6 +262,7 @@ void display_formatted_float(double val, int characteristic, int mantissa, int b
   if(linefeed)
     //Serial.print(F("\n"));
     Serial.write("\n");
+    
 }
 
 int absolute(int val)

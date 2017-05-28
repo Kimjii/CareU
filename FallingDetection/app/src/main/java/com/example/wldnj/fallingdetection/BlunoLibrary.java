@@ -111,7 +111,8 @@ public abstract  class BlunoLibrary extends Activity {
 	public static final String SerialPortUUID="0000dfb1-0000-1000-8000-00805f9b34fb";
 	public static final String CommandUUID="0000dfb2-0000-1000-8000-00805f9b34fb";
     public static final String ModelNumberStringUUID="00002a24-0000-1000-8000-00805f9b34fb";
-	
+
+	boolean mIsReceiverRegistered;
     public void onCreateProcess()
     {
     	if(!initiate())
@@ -121,16 +122,16 @@ public abstract  class BlunoLibrary extends Activity {
 			((Activity) mainContext).finish();
 		}
 
-
 		Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
 		bindService(gattServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
-        
+		startService(gattServiceIntent);
+
 		// Initializes list view adapter.
 		mLeDeviceListAdapter = new LeDeviceListAdapter();
 		// Initializes and show the scan Device Dialog
 		mScanDeviceDialog = new AlertDialog.Builder(mainContext)
 		.setTitle("BLE Device Scan...").setAdapter(mLeDeviceListAdapter, new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
@@ -180,10 +181,25 @@ public abstract  class BlunoLibrary extends Activity {
 				scanLeDevice(false);
 			}
 		}).create();
-		
+		mIsReceiverRegistered = false;
     }
-    
-    
+
+	private void unregisterGattUpdateReceiver(){
+		if(mIsReceiverRegistered){
+			unregisterReceiver(mGattUpdateReceiver);
+			mIsReceiverRegistered = false;
+		}
+	}
+
+	private void registerGattUpdateReceiver(){
+		if(!mIsReceiverRegistered){
+			IntentFilter filter = new IntentFilter();
+			filter.addAction("android.intent.action.PHONE_STATE");
+			mainContext.registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+
+			mIsReceiverRegistered = true;
+		}
+	}
     
     public void onResumeProcess() {
     	System.out.println("BlUNOActivity onResume");
@@ -198,10 +214,8 @@ public abstract  class BlunoLibrary extends Activity {
 				((Activity) mainContext).startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 			}
 		}
-		
-		
-	    mainContext.registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
 
+		registerGattUpdateReceiver();
 	}
     
 
@@ -331,7 +345,7 @@ public abstract  class BlunoLibrary extends Activity {
             	
             
             	System.out.println("displayData "+intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
-            	
+            	//Toast.makeText( getApplicationContext(), intent.getStringExtra(BluetoothLeService.EXTRA_DATA), Toast.LENGTH_SHORT ).show();
 //            	mPlainProtocol.mReceivedframe.append(intent.getStringExtra(BluetoothLeService.EXTRA_DATA)) ;
 //            	System.out.print("mPlainProtocol.mReceivedframe:");
 //            	System.out.println(mPlainProtocol.mReceivedframe.toString());
